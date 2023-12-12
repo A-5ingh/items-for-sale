@@ -30,7 +30,8 @@
 
         .item {
             position: relative;
-            width: 400px; /* Increased width to make items approximately 2x larger */
+            width: 400px; /* Fixed width for items */
+            height: 500px; /* Fixed height for items */
             margin: 20px;
             padding: 15px;
             background-color: #fff;
@@ -48,6 +49,7 @@
         .carousel-inner img {
             width: 100%;
             height: 100%;
+            object-fit: cover; /* Ensure images cover the entire container */
             border-radius: 10px;
         }
 
@@ -133,7 +135,7 @@
 
     <script>
         // Sample item data (replace with your own)
-const imagesFolder = "https://raw.githubusercontent.com/A-5ingh/items-for-sale/main/images";
+        const imagesFolder = "https://raw.githubusercontent.com/A-5ingh/items-for-sale/main/images";
         const items = [
             {
                 name: "Ikea MALM King Bed",
