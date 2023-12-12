@@ -100,12 +100,13 @@
 
     <script>
         // Sample item data (replace with your own)
+        const imagesFolder = "https://raw.githubusercontent.com/A-5ingh/items-for-sale/main/images";
         const items = [
             {
                 name: "Comfy Sofa",
                 description: "A cozy sofa perfect for your living room.",
                 price: "$250",
-                images: ["https://github.com/A-5ingh/items-for-sale/blob/main/images/bed-king-01-min.jpg", "https://github.com/A-5ingh/items-for-sale/blob/main/images/bed-king-02-min.jpg", "https://github.com/A-5ingh/items-for-sale/blob/main/images/bed-king-02-min.jpg", "https://github.com/A-5ingh/items-for-sale/blob/main/images/bed-king-03-min.jpg"], // Add the paths to your images
+                images: ["bed-king-01-min.jpg", "bed-king-02-min.jpg", "bed-king-03-min.jpg", "bed-king-04-min.jpg"], // Add the paths to your images
                 sold: false,
             },
             {
@@ -130,7 +131,7 @@
                     <div class="carousel-inner">
                         ${item.images.map((image, index) => `
                             <div class="carousel-item${index === 0 ? ' active' : ''}">
-                                <img src="${image}" alt="${item.name} Image ${index + 1}">
+                                <img src="${imagesFolder}/${image}" alt="${item.name} Image ${index + 1}">
                             </div>
                         `).join('')}
                     </div>
