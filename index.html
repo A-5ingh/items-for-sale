@@ -38,6 +38,7 @@
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease-in-out;
             overflow: hidden;
+            cursor: pointer; /* Add cursor pointer for clickable items */
         }
 
         .item:hover {
@@ -85,6 +86,17 @@
             border-radius: 5px;
             font-size: 1.2em;
         }
+
+        /* Full-screen modal styles */
+        .modal-dialog {
+            max-width: 90vw;
+            margin: 30px auto;
+        }
+
+        .modal-content {
+            background-color: transparent;
+            border: none;
+        }
     </style>
 </head>
 <body>
@@ -98,9 +110,30 @@
         <!-- Add your items here -->
     </section>
 
+    <!-- Full-screen modal markup -->
+    <div class="modal fade" id="fullScreenModal" tabindex="-1" role="dialog" aria-labelledby="fullScreenModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div id="fullScreenCarousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <!-- Carousel items will be dynamically added here -->
+                    </div>
+                    <a class="carousel-control-prev" href="#fullScreenCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#fullScreenCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Sample item data (replace with your own)
-        const imagesFolder = "https://raw.githubusercontent.com/A-5ingh/items-for-sale/main/images";
+const imagesFolder = "https://raw.githubusercontent.com/A-5ingh/items-for-sale/main/images";
         const items = [
             {
                 name: "Ikea MALM King Bed",
@@ -154,14 +187,37 @@
                 <h2>${item.name}</h2>
                 ${item.sold ? '<div class="sold-badge">Sold</div>' : ''}
                 <p>${item.description}</p>
-                <p class="price${item.sold ? ' sold' : ''}">${item.price}</p>
+                <p class="price${item.sold ? ' sold' : ''}"><strong>Price:</strong> ${item.price}</p>
             `;
 
             // Ensure itemsContainer exists before appending
             if (itemsContainer) {
                 itemsContainer.appendChild(itemElement);
+
+                // Add click event to open full-screen modal
+                itemElement.addEventListener('click', () => openFullScreenModal(item.name.replace(/\s/g, '') + 'Carousel'));
             }
         });
+
+        // Function to open full-screen modal
+        function openFullScreenModal(carouselId) {
+            const fullScreenCarousel = document.getElementById('fullScreenCarousel');
+            const fullScreenModal = new bootstrap.Modal(document.getElementById('fullScreenModal'), {
+                keyboard: true,
+                backdrop: 'static'
+            });
+
+            // Clear previous items in the full-screen carousel
+            fullScreenCarousel.innerHTML = '';
+
+            // Clone and append the items from the clicked carousel to the full-screen carousel
+            document.getElementById(carouselId).querySelectorAll('.carousel-item').forEach(item => {
+                fullScreenCarousel.appendChild(item.cloneNode(true));
+            });
+
+            // Show the full-screen modal
+            fullScreenModal.show();
+        }
     </script>
 
     <!-- Bootstrap scripts -->
